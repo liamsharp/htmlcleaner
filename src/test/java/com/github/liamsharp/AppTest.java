@@ -1,37 +1,38 @@
 package com.github.liamsharp;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest  extends TestCase
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.DomSerializer;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
+import org.junit.Test;
+import org.w3c.dom.Document;
+
+public class AppTest 
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
+    final String HTML = "<html></html>";
+    final boolean ESCAPE_XML = false;
+    
+    @Test
     public void testApp()
     {
-        assertTrue( true );
+        final TagNode tagNode = new HtmlCleaner().clean(HTML);
+        System.out.println(tagNode);
+        final CleanerProperties cleanerProperties = new CleanerProperties();
+        System.out.println(cleanerProperties);
+        try
+        {
+            final Document doc = new DomSerializer(cleanerProperties, false).createDOM(tagNode);
+            System.out.println(doc);
+        }
+        catch (ParserConfigurationException e)
+        {
+            fail(e.toString());
+        }
     }
 }
