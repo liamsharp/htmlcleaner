@@ -1,7 +1,5 @@
 package com.github.liamsharp;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,7 +13,11 @@ import org.w3c.dom.Document;
 
 public class AppTest 
 {
-    final String HTML = "<html></html>";
+    final String HTML = "<html>"
+            + "<body>"
+            + "<img srcset=\"<svg%20\">"
+            + "</body>"
+            + "</html>";
     final boolean ESCAPE_XML = false;
     
     @Test
